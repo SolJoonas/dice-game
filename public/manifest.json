@@ -2,7 +2,7 @@
   "name": "Mökin tulospalvelu",
   "short_name": "Tulospalvelu",
   "description": "Kynä & paperi -tulospalvelu — Noppapeli, Mökkipeli ja Ristiseiska",
-  "start_url": "/",
+  "start_url": "/dice-game/",
   "display": "standalone",
   "background_color": "#FFF8F0",
   "theme_color": "#FFF8F0",
