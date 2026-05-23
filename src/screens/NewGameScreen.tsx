@@ -104,7 +104,7 @@ export function NewGameScreen() {
         </div>
         <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 16, fontStyle: 'italic' }}>Lisää pelaajien nimet pelijärjestyksessä</p>
 
-        <div style={{ flex: 1, overflow: 'auto', marginBottom: 8 }}>
+        <div style={{ marginBottom: 8 }}>
           {playerNames.map((name, index) => (
             <div key={index} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
               <div style={{ width: 36, height: 36, borderRadius: '50%', border: '2px dashed var(--accent)', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: 'var(--accent)', fontSize: 16, fontFamily: 'var(--font-title)', flexShrink: 0, paddingRight: 3 }}>{index + 1}</div>
@@ -123,10 +123,17 @@ export function NewGameScreen() {
             {presets.map(name => (<button key={name} onClick={() => addPreset(name)} className="chip" style={{ cursor: 'pointer', border: '1px dashed var(--accent)', padding: '4px 10px', fontSize: 14, color: 'var(--accent)' }}>👤 {name}</button>))}
           </div>
         </>)}
-
-        <button id="btn-start-game" className="btn btn-primary btn-full" onClick={startGame}>▶ Aloita peli</button>
-        <div style={{ height: 8 }} />
       </div>
+
+      <div style={{
+        padding: '12px 16px 16px',
+        background: 'var(--surface)',
+        borderTop: '2px dashed var(--border)',
+        zIndex: 10
+      }}>
+        <button id="btn-start-game" className="btn btn-primary btn-full" onClick={startGame}>▶ Aloita peli</button>
+      </div>
+
       {snackbar && <div className="snackbar">{snackbar}</div>}
     </div>
   );
