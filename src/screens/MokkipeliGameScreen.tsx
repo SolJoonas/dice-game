@@ -188,7 +188,7 @@ export function MokkipeliGameScreen() {
             <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 8 }}>
               {players[editing.pi].name} — heitto #{editing.ti + 1}
             </p>
-            <input className="input" type="number" inputMode="numeric" autoFocus
+            <input className="input" type="number" inputMode="numeric"
               min={0} max={12} value={editValue}
               onChange={e => setEditValue(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleEditSave()}

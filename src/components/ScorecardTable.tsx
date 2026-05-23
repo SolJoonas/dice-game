@@ -1,10 +1,9 @@
-/** Scorecard cards — per-player Noppapeli scorecard in a swipeable carousel. */
+/** Scorecard cards — per-player Noppapeli scorecards in a scrollable column. */
 
 import type { Player } from '../models/player';
 import { getScore, upperTotal, upperBonus, lowerTotal, grandTotal } from '../models/player';
 import type { ScorecardCategory } from '../models/scorecard';
 import { UPPER_SECTION, LOWER_SECTION } from '../models/scorecard';
-import { PlayerCardCarousel } from './PlayerCardCarousel';
 
 interface ScorecardTableProps {
   players: Player[];
@@ -151,10 +150,12 @@ export function ScorecardTable({ players, onScoreTap }: ScorecardTableProps) {
   }
 
   return (
-    <PlayerCardCarousel
-      count={players.length}
-      renderCard={renderCard}
-      names={players.map(p => p.name)}
-    />
+    <div className="scorecard-column-container">
+      {players.map((_, pi) => (
+        <div key={players[pi].name} className="player-card-snap-wrapper">
+          {renderCard(pi)}
+        </div>
+      ))}
+    </div>
   );
 }

@@ -40,7 +40,6 @@ export function ScoreInputDialog({ category, currentScore, onSubmit, onClose }: 
           className="input"
           type="number"
           inputMode="numeric"
-          autoFocus
           placeholder={`0 - ${category.maxScore}`}
           value={value}
           onChange={e => setValue(e.target.value)}

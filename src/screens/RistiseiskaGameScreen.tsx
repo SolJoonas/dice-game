@@ -182,7 +182,7 @@ export function RistiseiskaGameScreen() {
             <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 8 }}>
               {players[editing.pi].name} — kierros {editing.ri + 1}
             </p>
-            <input className="input" type="number" inputMode="numeric" autoFocus
+            <input className="input" type="number" inputMode="numeric"
               min={0} value={editValue}
               onChange={e => setEditValue(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleEditSave()}
@@ -229,7 +229,7 @@ export function RistiseiskaGameScreen() {
         <div className="modal-backdrop" onClick={() => setShowPointLimitDialog(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-title">Pisteraja</div>
-            <input className="input" type="number" inputMode="numeric" autoFocus
+            <input className="input" type="number" inputMode="numeric"
               value={pointLimitInput} onChange={e => setPointLimitInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSetPointLimit()}
               style={{ fontSize: 28, textAlign: 'center', fontFamily: 'var(--font-title)', color: 'var(--score-ink)' }} />

@@ -619,39 +619,26 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SCORECARD CAROUSEL — Swipeable per-player cards
+   SCORECARD COLUMN — Scrollable list of player cards with snap
    ══════════════════════════════════════════════════════════════ */
 
-.scorecard-carousel-wrapper {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-  touch-action: pan-y;
-  user-select: none;
-}
-
-.scorecard-carousel-track {
+.scorecard-column-container {
   display: flex;
-  height: 100%;
-  will-change: transform;
-  align-items: stretch;
-}
-
-/* ── Slide (peek effect — adjacent cards visible) ──── */
-.scorecard-carousel-slide {
+  flex-direction: column;
+  gap: 24px;
   height: 100%;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 14px 6px 56px;
+  scroll-snap-type: y mandatory;
+  padding: 32px 16px 80px;
   -webkit-overflow-scrolling: touch;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-  transform: scale(0.92);
-  opacity: 0.45;
 }
 
-.scorecard-carousel-slide.active {
-  transform: scale(1);
-  opacity: 1;
+.player-card-snap-wrapper {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 /* ── Player Card (elevated paper look) ────────────── */
@@ -791,32 +778,4 @@ body {
   border-radius: 10px;
   box-shadow: var(--pencil-shadow);
   margin-top: 4px;
-}
-
-/* ── Dot Indicators ───────────────────────────────── */
-.scorecard-dots {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.scorecard-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.25s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.scorecard-dot.active {
-  background: var(--accent);
-  transform: scale(1.3);
 }
