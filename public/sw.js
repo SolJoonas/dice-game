@@ -1,17 +1,21 @@
-/** Minimal service worker — enables PWA install + offline caching. */
+/** Service worker — full offline support for PWA. */
 
-const CACHE_NAME = 'tulospalvelu-v1';
+const CACHE_NAME = 'tulospalvelu-v2';
+const BASE = '/dice-game/';
+
+// Assets to pre-cache on install (the app shell)
+const PRECACHE_URLS = [
+  BASE,
+  BASE + 'index.html',
+  BASE + 'manifest.json',
+  BASE + 'favicon.svg',
+  BASE + 'icons.svg',
+];
 
 // Cache the app shell on install
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      cache.addAll([
-        '/',
-        '/index.html',
-        '/manifest.json',
-      ])
-    )
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
   );
   self.skipWaiting();
 });
@@ -26,18 +30,68 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Network-first strategy: try network, fall back to cache
+// Fetch strategy:
+// - Hashed assets (JS/CSS bundles): cache-first (immutable, hash changes on update)
+// - Google Fonts: cache-first with network fallback (rarely change)
+// - Everything else: network-first with cache fallback (HTML shell, manifest)
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+
+  // Hashed Vite assets — cache-first (filename includes content hash)
+  if (url.pathname.startsWith(BASE + 'assets/')) {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) return cached;
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        });
+      })
+    );
+    return;
+  }
+
+  // Google Fonts — stale-while-revalidate
+  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        const fetchPromise = fetch(event.request)
+          .then((response) => {
+            if (response.ok) {
+              const clone = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || fetchPromise;
+      })
+    );
+    return;
+  }
+
+  // App shell & other same-origin requests — network-first
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Cache successful responses
         if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return response;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => caches.match(event.request).then((cached) => {
+        // For navigation requests, fall back to the cached index.html
+        if (event.request.mode === 'navigate') {
+          return cached || caches.match(BASE + 'index.html');
+        }
+        return cached;
+      }))
   );
 });
