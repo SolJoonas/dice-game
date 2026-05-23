@@ -1,0 +1,822 @@
+/* ══════════════════════════════════════════════════════════════
+   DICE GAME — Pen & Paper Design System
+   Hand-drawn notebook aesthetic with 90's pop color accents
+   ══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&display=swap');
+
+:root {
+  /* ── Backgrounds ─────────────────────────────── */
+  --bg: #FFF8F0;
+  --bg-lines: #F0E6D6;
+  --surface: #FFFFFF;
+  --surface-light: #FFF5EB;
+
+  /* ── Accents (90's pop) ────────────────────────── */
+  --accent: #00897B;
+  --coral: #FF6F61;
+  --gold: #FFB300;
+  --score-ink: #00695C;
+  --purple: #7E57C2;
+  --sky: #29B6F6;
+
+  /* ── Text ────────────────────────────────────── */
+  --text-primary: #3E3232;
+  --text-secondary: #8D7B68;
+  --muted: #B8A99A;
+
+  /* ── Utility ─────────────────────────────────── */
+  --border: #D4C9B8;
+  --border-light: #E8DFD2;
+  --error: #E53935;
+  --success: #2E7D32;
+
+  /* ── Pencil shadow ─────────────────────────── */
+  --pencil-shadow: 2px 2px 0px #D4C9B8;
+  --pencil-shadow-sm: 1px 1px 0px #D4C9B8;
+
+  /* ── Spacing & Radii ─────────────────────────── */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --radius-xs: 3px;
+
+  /* ── Fonts ───────────────────────────────────── */
+  --font-title: 'Caveat', cursive;
+  --font-body: 'Patrick Hand', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Reset & Base ──────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* Ruled notebook lines */
+  background-image:
+    repeating-linear-gradient(transparent 0px,
+      transparent 31px,
+      var(--bg-lines) 31px,
+      var(--bg-lines) 32px);
+  background-size: 100% 32px;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography ────────────────────────────────── */
+.pixel-font {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.text-green {
+  color: var(--score-ink);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+/* ── Buttons ───────────────────────────────────── */
+.btn {
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.btn:active {
+  transform: scale(0.97) rotate(-0.5deg);
+}
+
+.btn:hover {
+  transform: rotate(-0.5deg);
+}
+
+.btn-primary {
+  background: var(--coral);
+  color: #fff;
+  border: 2px solid var(--coral);
+  box-shadow: var(--pencil-shadow);
+}
+
+.btn-primary:hover {
+  box-shadow: 3px 3px 0px #c4a68a;
+}
+
+.btn-success {
+  background: var(--accent);
+  color: #fff;
+  border: 2px solid var(--accent);
+  box-shadow: var(--pencil-shadow);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px dashed var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline-cyan {
+  background: transparent;
+  border: 2px dashed var(--sky);
+  color: var(--sky);
+}
+
+.btn-outline-purple {
+  background: transparent;
+  border: 2px dashed var(--purple);
+  color: var(--purple);
+}
+
+.btn-danger {
+  background: var(--error);
+  color: #fff;
+  border: 2px solid var(--error);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+/* ── Inputs ────────────────────────────────────── */
+.input {
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: none;
+  border-bottom: 2px dashed var(--border);
+  border-radius: 0;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.input:focus {
+  border-bottom-color: var(--accent);
+  border-bottom-style: solid;
+}
+
+.input::placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── Cards ─────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--pencil-shadow-sm);
+}
+
+.card-active {
+  border-color: var(--accent);
+  border-style: solid;
+  background: rgba(0, 137, 123, 0.06);
+}
+
+/* ── App Bar ───────────────────────────────────── */
+.app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 2px dashed var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-bar-title {
+  font-family: var(--font-title);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.app-bar-back {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-body);
+}
+
+.app-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Dialogs / Modals ──────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(62, 50, 50, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal {
+  background: var(--surface);
+  border: 2px dashed var(--accent);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.2s ease;
+  box-shadow: 3px 3px 0px var(--border);
+}
+
+.modal-title {
+  font-family: var(--font-title);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ── Progress Bar ──────────────────────────────── */
+.progress-bar {
+  height: 10px;
+  background: var(--bg-lines);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px dashed var(--border);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* ── Chip / Badge ──────────────────────────────── */
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 13px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-lines);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  border: 1px dashed var(--border);
+}
+
+.chip-error {
+  background: rgba(229, 57, 53, 0.1);
+  border: 1px dashed var(--error);
+  color: var(--error);
+}
+
+.chip-round {
+  min-height: 40px;
+  min-width: 56px;
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-title);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.1s;
+}
+
+.chip-round:active {
+  transform: scale(0.95);
+}
+
+/* ── Switch Toggle ─────────────────────────────── */
+.switch {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-lines);
+  border-radius: 13px;
+  border: 2px dashed var(--border);
+  transition: background 0.2s;
+}
+
+.switch input:checked+.switch-track {
+  background: var(--accent);
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  transition: transform 0.2s;
+  pointer-events: none;
+}
+
+.switch input:checked~.switch-thumb {
+  transform: translateX(22px);
+  background: #fff;
+}
+
+/* ── Ruled Paper Overlay ──────────────────────── */
+.ruled-paper {
+  position: relative;
+}
+
+.ruled-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Faint red margin line — like a real notebook */
+  background: linear-gradient(to right,
+      transparent 44px,
+      rgba(229, 57, 53, 0.15) 44px,
+      rgba(229, 57, 53, 0.15) 46px,
+      transparent 46px);
+  z-index: 0;
+}
+
+/* ── Animations ────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scoreEnter {
+  from {
+    opacity: 0;
+    transform: translateY(4px) rotate(-2deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes scribble {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-0.5deg);
+  }
+
+  75% {
+    transform: rotate(0.5deg);
+  }
+}
+
+/* ── Utility ───────────────────────────────────── */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-4 {
+  gap: 4px;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-12 {
+  gap: 12px;
+}
+
+.gap-16 {
+  gap: 16px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* ── Screen Wrapper ────────────────────────────── */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.screen-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* ── Floating Action Button ────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--coral);
+  color: #fff;
+  border: 2px solid var(--coral);
+  border-radius: 28px;
+  padding: 14px 20px;
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 3px 3px 0px #D4C9B8;
+  z-index: 50;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s;
+}
+
+.fab:active {
+  transform: scale(0.95) rotate(-1deg);
+}
+
+/* ── Scrollbar Styling ─────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-lines);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ── Snackbar ──────────────────────────────────── */
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  color: var(--text-primary);
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  border: 2px dashed var(--accent);
+  font-size: 14px;
+  font-family: var(--font-body);
+  z-index: 2000;
+  animation: slideUp 0.2s ease;
+  box-shadow: var(--pencil-shadow);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCORECARD CAROUSEL — Swipeable per-player cards
+   ══════════════════════════════════════════════════════════════ */
+
+.scorecard-carousel-wrapper {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.scorecard-carousel-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  align-items: stretch;
+}
+
+/* ── Slide (peek effect — adjacent cards visible) ──── */
+.scorecard-carousel-slide {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px 6px 56px;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  transform: scale(0.92);
+  opacity: 0.45;
+}
+
+.scorecard-carousel-slide.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ── Player Card (elevated paper look) ────────────── */
+.player-card {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  padding: 14px 12px 16px;
+  box-shadow: 3px 4px 0px var(--border), 0 8px 24px rgba(62, 50, 50, 0.08);
+}
+
+.player-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, rgba(0, 137, 123, 0.08), rgba(0, 137, 123, 0.02));
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+.player-card-name {
+  font-family: var(--font-title);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.player-card-total {
+  font-family: var(--font-title);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ── 2-Column Grid ────────────────────────────────── */
+.score-card-grid {
+  display: flex;
+  gap: 6px;
+}
+
+.score-card-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Score Row (tappable) ─────────────────────────── */
+.score-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 8px;
+  background: var(--surface);
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.score-card-row:active {
+  transform: scale(0.96);
+  background: rgba(0, 137, 123, 0.08);
+}
+
+/* ── Dice Icon Label ──────────────────────────────── */
+.score-card-dice {
+  font-size: 17px;
+  letter-spacing: -1px;
+  line-height: 1;
+  flex: 1;
+  color: var(--text-secondary);
+}
+
+.score-card-value {
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 700;
+  min-width: 28px;
+  text-align: right;
+}
+
+.score-card-value.filled {
+  color: var(--score-ink);
+  animation: scoreEnter 0.2s ease;
+}
+
+.score-card-value.empty {
+  color: var(--border);
+  font-size: 18px;
+}
+
+/* ── Computed Cells (subtotals, bonus, grand total) ── */
+.score-card-computed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-title);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.score-card-computed.subtotal {
+  background: var(--bg-lines);
+  color: var(--text-primary);
+  border: 1px dashed var(--border);
+}
+
+.score-card-computed.bonus-earned {
+  background: rgba(255, 179, 0, 0.12);
+  color: var(--gold);
+  border: 1px dashed var(--gold);
+}
+
+.score-card-computed.bonus-none {
+  background: var(--bg-lines);
+  color: var(--muted);
+  border: 1px dashed var(--border-light);
+}
+
+.score-card-computed.grand-total {
+  background: var(--accent);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 12px 14px;
+  border-radius: 10px;
+  box-shadow: var(--pencil-shadow);
+  margin-top: 4px;
+}
+
+/* ── Dot Indicators ───────────────────────────────── */
+.scorecard-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.scorecard-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scorecard-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
