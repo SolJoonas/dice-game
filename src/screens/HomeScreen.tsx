@@ -80,6 +80,16 @@ export function HomeScreen() {
           ⚙️ Asetukset
         </button>
 
+        <div style={{ height: 12 }} />
+
+        <button
+          id="btn-help"
+          className="btn btn-outline btn-full"
+          onClick={() => navigate('help')}
+        >
+          ❓ Ohje
+        </button>
+
         <div style={{ flex: 1 }} />
       </div>
     </div>

@@ -7,7 +7,8 @@ export type Route =
   | { page: 'new-game' }
   | { page: 'game' }
   | { page: 'history' }
-  | { page: 'settings' };
+  | { page: 'settings' }
+  | { page: 'help' };
 
 function parseHash(): Route {
   const hash = window.location.hash.replace('#', '') || '/';
@@ -16,6 +17,7 @@ function parseHash(): Route {
     case '/game': return { page: 'game' };
     case '/history': return { page: 'history' };
     case '/settings': return { page: 'settings' };
+    case '/help': return { page: 'help' };
     default: return { page: 'home' };
   }
 }

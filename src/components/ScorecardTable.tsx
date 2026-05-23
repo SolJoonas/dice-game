@@ -42,7 +42,25 @@ function DiceGroup({ faces, gap = 1 }: { faces: number[]; gap?: number }) {
   );
 }
 
-function diceLabel(id: string): React.ReactNode {
+/* Generate stable random dice faces for the 'chance' category per player */
+function seededRandom(seed: number): () => number {
+  let s = seed;
+  return () => {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    return s;
+  };
+}
+
+function getChanceDice(playerIndex: number): number[] {
+  const rng = seededRandom(playerIndex * 7 + 13);
+  const faces: number[] = [];
+  for (let i = 0; i < 5; i++) {
+    faces.push((rng() % 6) + 1);
+  }
+  return faces;
+}
+
+function diceLabel(id: string, playerIndex: number = 0): React.ReactNode {
   switch (id) {
     case 'ones':             return <Die face={1} size={18} />;
     case 'twos':             return <Die face={2} size={18} />;
@@ -57,7 +75,12 @@ function diceLabel(id: string): React.ReactNode {
     case 'small_straight':   return <DiceGroup faces={[1, 2, 3, 4, 5]} gap={0} />;
     case 'large_straight':   return <DiceGroup faces={[2, 3, 4, 5, 6]} gap={0} />;
     case 'full_house':       return <DiceGroup faces={[3, 3, 6, 6, 6]} gap={0} />;
-    case 'chance':           return <span style={{ fontSize: 16 }}>🎲</span>;
+    case 'chance':           return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
+        <DiceGroup faces={getChanceDice(playerIndex)} gap={0} />
+        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginLeft: 2 }}>?</span>
+      </span>
+    );
     case 'noppapeli':        return <DiceGroup faces={[6, 6, 6, 6, 6]} gap={0} />;
     default:                 return <span>🎲</span>;
   }
@@ -69,7 +92,7 @@ export function ScorecardTable({ players, onScoreTap }: ScorecardTableProps) {
     return (
       <div key={cat.id} className="score-card-row" title={cat.name}
         onClick={() => onScoreTap(pi, cat)}>
-        <span className="score-card-dice">{diceLabel(cat.id)}</span>
+        <span className="score-card-dice">{diceLabel(cat.id, pi)}</span>
         <span className={`score-card-value ${s !== null ? 'filled' : 'empty'}`}>
           {s !== null ? s : '–'}
         </span>

@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# Mökin Tulospalvelu — Scoreboard App 🎲
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Suomeksi](#suomeksi) | [In English](#in-english)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Suomeksi
 
-## React Compiler
+**Mökin Tulospalvelu** on retrohenkinen (90-luvun tyylinen) monipelin tulospalvelusovellus, joka on suunniteltu erityisesti mökkipeleihin ja perinteisiin seurapeleihin. Sovellus on optimoitu mobiililaitteille ja se voidaan asentaa **PWA-sovelluksena** offline-käyttöä varten.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Tuetut pelit
+1. **Noppapeli** (Yatzy-tyylinen) — Täydellinen 15 kategorian tuloskortti ylä- ja alaosioineen, automaattisella bonuksen laskennalla (rajana 63 pistettä).
+2. **Mökkipeli** — Peli, jossa heitetään tikkaa tai heittopulikoita tavoitellen täsmälleen 50 pistettä. Ylityksestä palaa 25 pisteeseen ja 3 peräkkäistä nollaa voi johtaa tippumiseen (säädettävissä asetuksista).
+3. **Ristiseiska** — Perinteinen korttipeli rangaistuspisteiden seurannalla, panttimekaniikalla ja automaattisella korttilaskurilla.
 
-## Expanding the ESLint configuration
+### Pääominaisuudet
+- 🎨 **90-luvun retrotyyli**: Käsinkirjoitetut fontit (*Caveat* ja *Patrick Hand*), ruutupaperitausta, luonnosmaiset reunat ja lyijykynävarjot.
+- 💾 **Paikallinen tallennus**: Pelit tallentuvat automaattisesti selaimesi `LocalStorageen`, joten pelisi ei katoa vaikka suljet selaimen tai verkkoyhteys katkeaa.
+- 🔊 **Äänitehosteet**: Hauskat retroäänet tuomaan fiilistä peli-iltoihin.
+- 📱 **PWA-tuki**: Voit lisätä sovelluksen suoraan puhelimesi kotinäytölle pikakuvakkeeksi.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## In English
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Mökin Tulospalvelu** (Cottage Scoreboard) is a retro-themed (90s aesthetic) multi-game score-tracking web application designed for cabin games and traditional tabletop games. Built with React and TypeScript, it is optimized for mobile screens and installable as a **Progressive Web App (PWA)**.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Supported Games
+1. **Noppapeli** (Yatzy-like) — Comprehensive 15-category scorecard with automatic bonus calculation (+50 points when upper score is 63 or higher).
+2. **Mökkipeli** (Cottage Game) — A lawn throwing game where the objective is to hit exactly 50 points. Exceeding 50 resets the score to 25. Getting 3 consecutive zeros can result in elimination (configurable).
+3. **Ristiseiska** (Sevens Card Game) — Finnish card game scoring that tracks penalty points and custom penalty multipliers, featuring an interactive hand value calculator.
+
+### Key Features
+- 🎨 **90s Retro Aesthetic**: Notebook paper backgrounds, sketched borders, pencil-style shadows, and casual handwriting fonts (*Caveat* & *Patrick Hand*).
+- 💾 **Offline-first Local Storage**: Keeps game state, history, and player presets saved directly in your browser's local cache.
+- 🔊 **Sound Effects**: Playful retro sounds for interactions, which can be toggled in settings.
+- 📱 **PWA Support**: Easily add the app to your mobile home screen.
+
+---
+
+## 🛠️ Kehitys & Asennus / Development & Setup
+
+### Vaatimukset / Requirements
+- **Node.js** (v18+)
+- **npm** (v9+)
+
+### Asennus / Installation
+Asenna riippuvuudet ajamalla seuraava komento projektihakemistossa:
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Käynnistys kehitystilassa / Start Development Server
+Käynnistä paikallinen Vite-kehityspalvelin:
+```bash
+npm run dev
 ```
+Avaa selaimeen osoite `http://localhost:5173` (tai komentorivin ilmoittama portti).
+
+### Tuotantoversio / Production Build
+Rakenna optimoitu tuotantoversio `dist/`-kansioon:
+```bash
+npm run build
+```
+
+### Tyyppitarkistus / Type Checking
+Voit suorittaa TypeScript-tyyppitarkistuksen:
+```bash
+npx tsc --noEmit
+```
+
+---
+
+## 📂 Sovelluksen rakenne / Project Structure
+```
+react-app/
+├── public/                 # PWA-kuvakkeet ja manifest.json
+├── src/
+│   ├── components/         # Uudelleenkäytettävät käyttöliittymäkomponentit
+│   ├── hooks/              # Reititys-, tallennus- ja äänikoukut
+│   ├── models/             # Pelilogiikka ja tietomallit (Noppapeli, Mökkipeli, Ristiseiska)
+│   ├── screens/            # Pelin eri näkymät (Koti, Uusi peli, Tuloskortit, Asetukset jne.)
+│   ├── App.tsx             # Sovelluksen reititin
+│   └── index.css           # 90-luvun retrotyylin teemat ja globaalit tyylit
+└── DOCUMENTATION.md        # Kattavampi tekninen dokumentaatio (suomeksi)
+```
+
+Tarkempia arkkitehtuuri- ja tietomallitietoja löydät tiedostosta [DOCUMENTATION.md](file:///c:/Users/Bromhum%20Highmantle/Desktop/Dice%20game/react-app/DOCUMENTATION.md).
+

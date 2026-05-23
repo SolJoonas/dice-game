@@ -9,6 +9,7 @@ import { MokkipeliGameScreen } from './screens/MokkipeliGameScreen';
 import { RistiseiskaGameScreen } from './screens/RistiseiskaGameScreen';
 import { HistoryScreen } from './screens/HistoryScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
+import { HelpScreen } from './screens/HelpScreen';
 
 function Router() {
   const { route } = useRouter();
@@ -29,6 +30,8 @@ function Router() {
       return <HistoryScreen />;
     case 'settings':
       return <SettingsScreen />;
+    case 'help':
+      return <HelpScreen />;
     default:
       return <HomeScreen />;
   }

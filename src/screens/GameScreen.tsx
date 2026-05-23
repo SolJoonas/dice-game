@@ -64,6 +64,7 @@ export function GameScreen() {
         <button className="app-bar-back" onClick={() => setShowLeaveConfirm(true)}>←</button>
         <span className="app-bar-title">Noppapeli</span>
         <div className="app-bar-actions">
+          <button onClick={() => navigate('help')} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>❓</button>
           <button onClick={() => setShowLeaderboard(true)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>🏆</button>
           <span style={{ fontSize: 13, color: 'var(--muted)', fontStyle: 'italic' }}>{completedCats}/{totalCats}</span>
         </div>

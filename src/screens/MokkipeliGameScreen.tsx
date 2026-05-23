@@ -85,6 +85,7 @@ export function MokkipeliGameScreen() {
         <button className="app-bar-back" onClick={() => navigate('home')}>←</button>
         <span className="app-bar-title">Mökkipeli</span>
         <div className="app-bar-actions">
+          <button onClick={() => navigate('help')} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>❓</button>
           <button onClick={() => setShowLeaderboard(true)}
             style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}>🏆</button>
           <span style={{ display: 'flex', gap: 2 }}>
