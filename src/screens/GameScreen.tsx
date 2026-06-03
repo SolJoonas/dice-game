@@ -90,13 +90,13 @@ export function GameScreen() {
               <div key={player.name} style={{ display: 'flex', alignItems: 'center', padding: '6px 0', gap: 8 }}>
                 <span style={{ width: 32, fontSize: rank < 3 ? 18 : 14 }}>{rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : `${rank + 1}.`}</span>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 700, color: rank === 0 ? 'var(--gold)' : 'var(--text-primary)' }}>{player.name}</div>
-                  <div style={{ fontSize: 12, color: upperBonus(player) > 0 ? 'var(--accent)' : 'var(--muted)', fontStyle: 'italic' }}>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: rank === 0 ? 'var(--gold)' : 'var(--text-primary)' }}>{player.name}</div>
+                  <div style={{ fontSize: 16, color: upperBonus(player) > 0 ? 'var(--accent)' : 'var(--muted)', fontStyle: 'italic' }}>
                     {upperBonus(player) > 0 ? '✅ Bonus saavutettu!' : `${pointsToBonus(player)} p bonukseen`}
                   </div>
                 </div>
                 <span style={{
-                  fontSize: 22, fontWeight: 700,
+                  fontSize: 24, fontWeight: 700,
                   fontFamily: 'var(--font-title)',
                   color: rank === 0 ? 'var(--gold)' : 'var(--score-ink)',
                 }}>{grandTotal(player)}</span>

@@ -36,7 +36,7 @@ function Die({ face, size = 16 }: { face: number; size?: number }) {
 function DiceGroup({ faces, gap = 1 }: { faces: number[]; gap?: number }) {
   return (
     <span style={{ display: 'inline-flex', gap, alignItems: 'center' }}>
-      {faces.map((f, i) => <Die key={i} face={f} size={16} />)}
+      {faces.map((f, i) => <Die key={i} face={f} size={20} />)}
     </span>
   );
 }
@@ -61,27 +61,27 @@ function getChanceDice(playerIndex: number): number[] {
 
 function diceLabel(id: string, playerIndex: number = 0): React.ReactNode {
   switch (id) {
-    case 'ones':             return <Die face={1} size={18} />;
-    case 'twos':             return <Die face={2} size={18} />;
-    case 'threes':           return <Die face={3} size={18} />;
-    case 'fours':            return <Die face={4} size={18} />;
-    case 'fives':            return <Die face={5} size={18} />;
-    case 'sixes':            return <Die face={6} size={18} />;
-    case 'one_pair':         return <DiceGroup faces={[4, 4]} />;
-    case 'two_pairs':        return <DiceGroup faces={[3, 3, 6, 6]} />;
-    case 'three_of_a_kind':  return <DiceGroup faces={[5, 5, 5]} />;
-    case 'four_of_a_kind':   return <DiceGroup faces={[3, 3, 3, 3]} />;
-    case 'small_straight':   return <DiceGroup faces={[1, 2, 3, 4, 5]} gap={0} />;
-    case 'large_straight':   return <DiceGroup faces={[2, 3, 4, 5, 6]} gap={0} />;
-    case 'full_house':       return <DiceGroup faces={[3, 3, 6, 6, 6]} gap={0} />;
-    case 'chance':           return (
+    case 'ones': return <Die face={1} size={20} />;
+    case 'twos': return <Die face={2} size={20} />;
+    case 'threes': return <Die face={3} size={20} />;
+    case 'fours': return <Die face={4} size={20} />;
+    case 'fives': return <Die face={5} size={20} />;
+    case 'sixes': return <Die face={6} size={20} />;
+    case 'one_pair': return <DiceGroup faces={[4, 4]} gap={2} />;
+    case 'two_pairs': return <DiceGroup faces={[3, 3, 6, 6]} gap={2} />;
+    case 'three_of_a_kind': return <DiceGroup faces={[5, 5, 5]} gap={2} />;
+    case 'four_of_a_kind': return <DiceGroup faces={[3, 3, 3, 3]} gap={2} />;
+    case 'small_straight': return <DiceGroup faces={[1, 2, 3, 4, 5]} gap={2} />;
+    case 'large_straight': return <DiceGroup faces={[2, 3, 4, 5, 6]} gap={2} />;
+    case 'full_house': return <DiceGroup faces={[3, 3, 6, 6, 6]} gap={2} />;
+    case 'chance': return (
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
-        <DiceGroup faces={getChanceDice(playerIndex)} gap={0} />
-        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginLeft: 2 }}>?</span>
+        <DiceGroup faces={getChanceDice(playerIndex)} gap={2} />
+        <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-secondary)', marginLeft: 2 }}>?</span>
       </span>
     );
-    case 'noppapeli':        return <DiceGroup faces={[6, 6, 6, 6, 6]} gap={0} />;
-    default:                 return <span>🎲</span>;
+    case 'noppapeli': return <DiceGroup faces={[6, 6, 6, 6, 6]} gap={2} />;
+    default: return <span>🎲</span>;
   }
 }
 
@@ -102,7 +102,7 @@ export function ScorecardTable({ players, onScoreTap }: ScorecardTableProps) {
   function computedRow(label: string, value: number, type: 'subtotal' | 'bonus' | 'grandTotal' = 'subtotal') {
     const cls = type === 'grandTotal' ? 'grand-total'
       : type === 'bonus' ? (value > 0 ? 'bonus-earned' : 'bonus-none')
-      : 'subtotal';
+        : 'subtotal';
     return (
       <div className={`score-card-computed ${cls}`}>
         <span>{label}</span><span>{value}</span>

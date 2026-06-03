@@ -32,7 +32,7 @@ export function ScoreInputDialog({ category, currentScore, onSubmit, onClose }: 
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-title">{category.name}</div>
-        <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 16, fontStyle: 'italic' }}>
+        <p style={{ fontSize: 16, color: 'var(--text-secondary)', marginBottom: 16, fontStyle: 'italic' }}>
           {category.description}
         </p>
 
@@ -54,7 +54,7 @@ export function ScoreInputDialog({ category, currentScore, onSubmit, onClose }: 
           }}
         />
 
-        <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: '16px 0 8px', fontStyle: 'italic' }}>
+        <p style={{ fontSize: 16, color: 'var(--text-secondary)', margin: '16px 0 8px', fontStyle: 'italic' }}>
           Pikavalinta:
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
